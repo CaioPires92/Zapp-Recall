@@ -1,29 +1,6 @@
 import logo from '../assets/logo.png'
-import setaPlay from '../assets/seta_play.png'
 import styled from 'styled-components'
-
-const camps = [
-  {
-    id: 1,
-    texto: 'Texto1',
-    imagem: setaPlay
-  },
-  {
-    id: 2,
-    texto: 'Texto2',
-    imagem: setaPlay
-  },
-  {
-    id: 3,
-    texto: 'Texto3',
-    imagem: setaPlay
-  },
-  {
-    id: 4,
-    texto: 'Texto4',
-    imagem: setaPlay
-  }
-]
+import TextCamp from './TextCamp'
 
 export default function Card() {
   return (
@@ -42,19 +19,6 @@ export default function Card() {
           <p>0/4 CONCLUÍDOS</p>
         </footer>
       </SCFooter>
-    </>
-  )
-}
-
-export function TextCamp() {
-  return (
-    <>
-      {camps.map(camp => (
-        <SCTextCamp key={camp.texto}>
-          <p>{camp.texto}</p>
-          <img src={camp.imagem} alt="icone" />
-        </SCTextCamp>
-      ))}
     </>
   )
 }
@@ -114,36 +78,5 @@ const SCFooter = styled.footer`
       text-align: center;
       color: #333333;
     }
-  }
-`
-
-const SCTextCamp = styled.div`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 300px;
-  height: 65px;
-
-  padding: 0 20px;
-  margin-top: 25px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-
-  img {
-    width: 20px;
-    height: 23px;
-    color: #333333;
-  }
-
-  p {
-    font-family: 'Recursive';
-    font-weight: 700;
-    font-size: 16px;
-
-    color: #333333;
   }
 `
