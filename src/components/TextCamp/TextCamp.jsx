@@ -21,11 +21,11 @@ export function CardVazio({ texto, onClick }) {
   )
 }
 
-export function CardPergunta({ question }) {
+export function CardPergunta({ question, onClick }) {
   return (
     <SCTextCampPergunta>
       <p>{question}</p>
-      <img src={setaVirar} alt="icone" />
+      <img src={setaVirar} alt="icone" onClick={onClick} />
     </SCTextCampPergunta>
   )
 }
@@ -52,49 +52,56 @@ export default function TextCamp() {
       texto: 'Pergunta 1',
       question: 'O que é JSX?',
       answer: 'Uma extensão da linguagem JavaScript',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 2,
       texto: 'Pergunta 2',
       question: 'O React é __',
       answer: 'Uma biblioteca JavaScript para construção de interfaces',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 3,
       texto: 'Pergunta 3',
       question: 'Componentes devem iniciar com __',
       answer: 'Letra maiúscula',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 4,
       texto: 'Pergunta 4',
       question: 'Podemos colocar __ dentro do JSX',
       answer: 'expressões',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 5,
       texto: 'Pergunta 5',
       question: 'O ReactDOM nos ajuda __',
       answer: 'Interagindo com a DOM para colocar componentes React na mesma',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 6,
       texto: 'Pergunta 6',
       question: 'Usamos o npm para __',
       answer: 'Gerenciar os pacotes necessários e suas dependências',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 7,
       texto: 'Pergunta 7',
       question: 'Usamos props para __',
       answer: 'Passar diferentes informações para componentes',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     },
     {
       id: 8,
@@ -102,14 +109,30 @@ export default function TextCamp() {
       question: 'Usamos estado (state) para __',
       answer:
         'Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente',
-      showPergunta: false
+      showPergunta: false,
+      showResposta: false
     }
   ])
 
-  const handleCardClick = id => {
-    const updatedCamps = camps.map(camp =>
-      camp.id === id ? { ...camp, showPergunta: true } : camp
-    )
+  const handleCardPerguntaClick = id => {
+    const updatedCamps = camps.map(camp => {
+      if (camp.id === id) {
+        return { ...camp, showPergunta: true, showResposta: false }
+      }
+      return camp
+    })
+
+    setCamps(updatedCamps)
+  }
+
+  const handleCardRespostaClick = id => {
+    const updatedCamps = camps.map(camp => {
+      if (camp.id === id) {
+        return { ...camp, showPergunta: false, showResposta: true }
+      }
+      return camp
+    })
+
     setCamps(updatedCamps)
   }
 
@@ -117,13 +140,17 @@ export default function TextCamp() {
     <>
       {camps.map(camp => (
         <div key={camp.id}>
-          {camp.showPergunta ? (
-            // <CardPergunta question={camp.question} />
+          {camp.showResposta && camp.showPergunta == false ? (
             <CardResposta answer={camp.answer} />
+          ) : camp.showResposta == false && camp.showPergunta ? (
+            <CardPergunta
+              question={camp.question}
+              onClick={() => handleCardRespostaClick(camp.id)}
+            />
           ) : (
             <CardVazio
               texto={camp.texto}
-              onClick={() => handleCardClick(camp.id)}
+              onClick={() => handleCardPerguntaClick(camp.id)}
             />
           )}
         </div>
