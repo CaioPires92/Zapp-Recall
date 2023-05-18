@@ -1,6 +1,6 @@
 import logo from '../assets/logo.png'
 import styled from 'styled-components'
-import TextCamp from './TextCamp'
+import TextCamp from './TextCamp/TextCamp'
 
 export default function Card() {
   return (

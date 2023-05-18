@@ -1,7 +1,16 @@
 import { useState } from 'react'
-import setaPlay from '../assets/seta_play.png'
-import setaVirar from '../assets/seta_virar.png'
-import styled from 'styled-components'
+import setaPlay from '../../assets/seta_play.png'
+import setaVirar from '../../assets/seta_virar.png'
+
+import {
+  SCTextCampVazio,
+  SCTextCampPergunta,
+  SCCampResposta,
+  ButtonContainer,
+  RedButton,
+  OrangeButton,
+  GreenButton
+} from './Styles'
 
 export function CardVazio({ texto, onClick }) {
   return (
@@ -18,6 +27,21 @@ export function CardPergunta({ question }) {
       <p>{question}</p>
       <img src={setaVirar} alt="icone" />
     </SCTextCampPergunta>
+  )
+}
+
+export function CardResposta({ answer }) {
+  return (
+    <>
+      <SCCampResposta>
+        <p>{answer}</p>
+        <ButtonContainer>
+          <RedButton>Não lembrei</RedButton>
+          <OrangeButton>Quase não lembrei</OrangeButton>
+          <GreenButton>Zap!</GreenButton>
+        </ButtonContainer>
+      </SCCampResposta>
+    </>
   )
 }
 
@@ -94,7 +118,8 @@ export default function TextCamp() {
       {camps.map(camp => (
         <div key={camp.id}>
           {camp.showPergunta ? (
-            <CardPergunta question={camp.question} />
+            // <CardPergunta question={camp.question} />
+            <CardResposta answer={camp.answer} />
           ) : (
             <CardVazio
               texto={camp.texto}
@@ -106,72 +131,3 @@ export default function TextCamp() {
     </>
   )
 }
-
-const SCTextCampVazio = styled.div`
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 300px;
-  height: 65px;
-
-  padding: 0 20px;
-  margin-top: 25px;
-
-  background: #ffffff;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-
-  img {
-    width: 20px;
-    height: 23px;
-    color: #333333;
-  }
-
-  p {
-    font-family: 'Recursive';
-    font-weight: 700;
-    font-size: 16px;
-
-    color: #333333;
-  }
-`
-
-const SCTextCampPergunta = styled.div`
-  position: relative;
-  width: 299px;
-  height: 131px;
-
-  margin: 0 auto;
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between; */
-
-  padding: 0 20px;
-  margin-top: 25px;
-
-  background-color: #ffffd5;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-
-  p {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-family: 'Recursive';
-    font-weight: 400;
-    font-size: 18px;
-
-    color: #333333;
-  }
-
-  img {
-    position: absolute;
-    width: 30px;
-    height: 20px;
-
-    bottom: 10px;
-    right: 10px;
-  }
-`
