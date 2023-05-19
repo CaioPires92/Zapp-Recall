@@ -12,10 +12,10 @@ import {
   GreenButton
 } from './Styles'
 
-export function CardVazio({ texto, onClick }) {
+export function CardVazio({ texto, onClick, color }) {
   return (
     <SCTextCampVazio>
-      <p>{texto}</p>
+      <p style={{ color }}>{texto}</p>
       <img src={setaPlay} alt="icone" onClick={onClick} />
     </SCTextCampVazio>
   )
@@ -30,15 +30,23 @@ export function CardPergunta({ question, onClick }) {
   )
 }
 
-export function CardResposta({ answer }) {
+export function CardResposta({ answer, handleClick }) {
   return (
     <>
       <SCCampResposta>
         <p>{answer}</p>
         <ButtonContainer>
-          <RedButton>Não lembrei</RedButton>
-          <OrangeButton>Quase não lembrei</OrangeButton>
-          <GreenButton>Zap!</GreenButton>
+          <RedButton onClick={() => handleClick('nao-lembrei', 'red')}>
+            Não lembrei
+          </RedButton>
+          <OrangeButton
+            onClick={() => handleClick('quase-nao-lembrei', 'orange')}
+          >
+            Quase não lembrei
+          </OrangeButton>
+          <GreenButton onClick={() => handleClick('zap', 'green')}>
+            Zap!
+          </GreenButton>
         </ButtonContainer>
       </SCCampResposta>
     </>
@@ -114,6 +122,22 @@ export default function TextCamp() {
     }
   ])
 
+  const [buttonValue, setButtonValue] = useState('')
+  const [selectedCampId, setSelectedCampId] = useState(null)
+  const [showCampVazio, setShowCampVazio] = useState(false)
+
+  function handleClick(buttonValue, color) {
+    setButtonValue(buttonValue)
+    setShowCampVazio(true)
+    const updatedCamps = camps.map(camp => {
+      if (camp.id === selectedCampId) {
+        return { ...camp, color, showPergunta: false, showResposta: false }
+      }
+      return camp
+    })
+    setCamps(updatedCamps)
+  }
+
   const handleCardPerguntaClick = id => {
     const updatedCamps = camps.map(camp => {
       if (camp.id === id) {
@@ -140,9 +164,9 @@ export default function TextCamp() {
     <>
       {camps.map(camp => (
         <div key={camp.id}>
-          {camp.showResposta && camp.showPergunta == false ? (
-            <CardResposta answer={camp.answer} />
-          ) : camp.showResposta == false && camp.showPergunta ? (
+          {camp.showResposta === true && camp.showPergunta === false ? (
+            <CardResposta answer={camp.answer} handleClick={handleClick} />
+          ) : camp.showResposta === false && camp.showPergunta === true ? (
             <CardPergunta
               question={camp.question}
               onClick={() => handleCardRespostaClick(camp.id)}
@@ -150,7 +174,11 @@ export default function TextCamp() {
           ) : (
             <CardVazio
               texto={camp.texto}
-              onClick={() => handleCardPerguntaClick(camp.id)}
+              color={camp.id === selectedCampId ? camp.color : 'inherit'}
+              onClick={() => {
+                handleCardPerguntaClick(camp.id)
+                setSelectedCampId(camp.id)
+              }}
             />
           )}
         </div>
