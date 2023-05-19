@@ -105,6 +105,10 @@ export default function TextCamp() {
   }
 
   const handleCardPerguntaClick = id => {
+    if (id === selectedCampId) {
+      return
+    }
+
     const updatedCamps = camps.map(camp => {
       if (camp.id === id) {
         return { ...camp, showPergunta: true, showResposta: false }
