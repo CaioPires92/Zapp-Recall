@@ -1,57 +1,9 @@
 import { useState } from 'react'
-import setaPlay from '../../assets/seta_play.png'
+import CardVazio from '../CardVazio'
+import CardResposta from '../CardResposta'
+import CardPergunta from '../CardPergunta'
 import setaVirar from '../../assets/seta_virar.png'
-
-import {
-  SCTextCampVazio,
-  SCTextCampPergunta,
-  SCCampResposta,
-  ButtonContainer,
-  RedButton,
-  OrangeButton,
-  GreenButton
-} from './Styles'
-
-export function CardVazio({ texto, onClick, color }) {
-  return (
-    <SCTextCampVazio>
-      <p style={{ color }}>{texto}</p>
-      <img src={setaPlay} alt="icone" onClick={onClick} />
-    </SCTextCampVazio>
-  )
-}
-
-export function CardPergunta({ question, onClick }) {
-  return (
-    <SCTextCampPergunta>
-      <p>{question}</p>
-      <img src={setaVirar} alt="icone" onClick={onClick} />
-    </SCTextCampPergunta>
-  )
-}
-
-export function CardResposta({ answer, handleClick }) {
-  return (
-    <>
-      <SCCampResposta>
-        <p>{answer}</p>
-        <ButtonContainer>
-          <RedButton onClick={() => handleClick('nao-lembrei', 'red')}>
-            Não lembrei
-          </RedButton>
-          <OrangeButton
-            onClick={() => handleClick('quase-nao-lembrei', 'orange')}
-          >
-            Quase não lembrei
-          </OrangeButton>
-          <GreenButton onClick={() => handleClick('zap', 'green')}>
-            Zap!
-          </GreenButton>
-        </ButtonContainer>
-      </SCCampResposta>
-    </>
-  )
-}
+import setaPlay from '../../assets/seta_play.png'
 
 export default function TextCamp() {
   const [camps, setCamps] = useState([
@@ -61,7 +13,8 @@ export default function TextCamp() {
       question: 'O que é JSX?',
       answer: 'Uma extensão da linguagem JavaScript',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 2,
@@ -69,7 +22,8 @@ export default function TextCamp() {
       question: 'O React é __',
       answer: 'Uma biblioteca JavaScript para construção de interfaces',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 3,
@@ -77,7 +31,8 @@ export default function TextCamp() {
       question: 'Componentes devem iniciar com __',
       answer: 'Letra maiúscula',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 4,
@@ -85,7 +40,8 @@ export default function TextCamp() {
       question: 'Podemos colocar __ dentro do JSX',
       answer: 'expressões',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 5,
@@ -93,7 +49,8 @@ export default function TextCamp() {
       question: 'O ReactDOM nos ajuda __',
       answer: 'Interagindo com a DOM para colocar componentes React na mesma',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 6,
@@ -101,7 +58,8 @@ export default function TextCamp() {
       question: 'Usamos o npm para __',
       answer: 'Gerenciar os pacotes necessários e suas dependências',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 7,
@@ -109,7 +67,8 @@ export default function TextCamp() {
       question: 'Usamos props para __',
       answer: 'Passar diferentes informações para componentes',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     },
     {
       id: 8,
@@ -118,7 +77,8 @@ export default function TextCamp() {
       answer:
         'Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente',
       showPergunta: false,
-      showResposta: false
+      showResposta: false,
+      image: setaVirar
     }
   ])
 
@@ -126,12 +86,18 @@ export default function TextCamp() {
   const [selectedCampId, setSelectedCampId] = useState(null)
   const [showCampVazio, setShowCampVazio] = useState(false)
 
-  function handleClick(buttonValue, color) {
+  function handleClick(buttonValue, color, newImage) {
     setButtonValue(buttonValue)
     setShowCampVazio(true)
     const updatedCamps = camps.map(camp => {
       if (camp.id === selectedCampId) {
-        return { ...camp, color, showPergunta: false, showResposta: false }
+        return {
+          ...camp,
+          color,
+          showPergunta: false,
+          showResposta: false,
+          image: newImage
+        }
       }
       return camp
     })
@@ -175,6 +141,9 @@ export default function TextCamp() {
             <CardVazio
               texto={camp.texto}
               color={camp.id === selectedCampId ? camp.color : 'inherit'}
+              showLineThrough={camp.id === selectedCampId && showCampVazio}
+              imageSrc={camp.id === selectedCampId ? camp.image : setaPlay}
+              buttonValue={buttonValue}
               onClick={() => {
                 handleCardPerguntaClick(camp.id)
                 setSelectedCampId(camp.id)

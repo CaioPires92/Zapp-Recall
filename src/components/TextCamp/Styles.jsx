@@ -26,7 +26,6 @@ export const SCTextCampVazio = styled.div`
     font-family: 'Recursive';
     font-weight: 700;
     font-size: 16px;
-
     color: #333333;
   }
 `
