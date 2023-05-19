@@ -1,5 +1,4 @@
 import { SCTextCampVazio } from './TextCamp/Styles'
-import setaPlay from '../assets/seta_play.png'
 
 export default function CardVazio({
   texto,

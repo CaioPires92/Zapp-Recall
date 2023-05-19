@@ -14,7 +14,8 @@ export default function TextCamp() {
       answer: 'Uma extensão da linguagem JavaScript',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 2,
@@ -23,7 +24,8 @@ export default function TextCamp() {
       answer: 'Uma biblioteca JavaScript para construção de interfaces',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 3,
@@ -32,7 +34,8 @@ export default function TextCamp() {
       answer: 'Letra maiúscula',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 4,
@@ -41,7 +44,8 @@ export default function TextCamp() {
       answer: 'expressões',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 5,
@@ -50,7 +54,8 @@ export default function TextCamp() {
       answer: 'Interagindo com a DOM para colocar componentes React na mesma',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 6,
@@ -59,7 +64,8 @@ export default function TextCamp() {
       answer: 'Gerenciar os pacotes necessários e suas dependências',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 7,
@@ -68,7 +74,8 @@ export default function TextCamp() {
       answer: 'Passar diferentes informações para componentes',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     },
     {
       id: 8,
@@ -78,7 +85,8 @@ export default function TextCamp() {
         'Dizer para o React quais informações quando atualizadas devem renderizar a tela novamente',
       showPergunta: false,
       showResposta: false,
-      image: setaVirar
+      image: setaVirar,
+      selected: false
     }
   ])
 
@@ -111,18 +119,36 @@ export default function TextCamp() {
 
     const updatedCamps = camps.map(camp => {
       if (camp.id === id) {
-        return { ...camp, showPergunta: true, showResposta: false }
+        return {
+          ...camp,
+          showPergunta: true,
+          showResposta: false,
+          selected: true
+        }
+      } else if (camp.selected) {
+        return {
+          ...camp,
+          showPergunta: false,
+          showResposta: false,
+          selected: true
+        }
+      } else {
+        return camp
       }
-      return camp
     })
 
     setCamps(updatedCamps)
+    setSelectedCampId(id)
   }
 
   const handleCardRespostaClick = id => {
     const updatedCamps = camps.map(camp => {
       if (camp.id === id) {
-        return { ...camp, showPergunta: false, showResposta: true }
+        return {
+          ...camp,
+          showPergunta: false,
+          showResposta: true
+        }
       }
       return camp
     })
@@ -134,9 +160,9 @@ export default function TextCamp() {
     <>
       {camps.map(camp => (
         <div key={camp.id}>
-          {camp.showResposta === true && camp.showPergunta === false ? (
+          {camp.showResposta && !camp.showPergunta ? (
             <CardResposta answer={camp.answer} handleClick={handleClick} />
-          ) : camp.showResposta === false && camp.showPergunta === true ? (
+          ) : camp.showPergunta ? (
             <CardPergunta
               question={camp.question}
               onClick={() => handleCardRespostaClick(camp.id)}
@@ -144,9 +170,9 @@ export default function TextCamp() {
           ) : (
             <CardVazio
               texto={camp.texto}
-              color={camp.id === selectedCampId ? camp.color : 'inherit'}
-              showLineThrough={camp.id === selectedCampId && showCampVazio}
-              imageSrc={camp.id === selectedCampId ? camp.image : setaPlay}
+              color={camp.selected ? camp.color : 'inherit'}
+              showLineThrough={camp.selected && showCampVazio}
+              imageSrc={camp.selected ? camp.image : setaPlay}
               buttonValue={buttonValue}
               onClick={() => {
                 handleCardPerguntaClick(camp.id)
