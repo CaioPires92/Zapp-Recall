@@ -13,8 +13,21 @@ export default function CardVazio({
 
   return (
     <SCTextCampVazio>
-      <p style={{ color, ...lineThroughStyle }}>{texto}</p>
+      <p data-test="flashcard-text" style={{ color, ...lineThroughStyle }}>
+        {texto}
+      </p>
       <img
+        data-test={
+          imageSrc === 'setaPlay'
+            ? 'play-btn'
+            : imageSrc === 'iconeErrado'
+            ? 'no-icon'
+            : imageSrc === 'iconeQuase'
+            ? 'partial-icon'
+            : imageSrc === 'iconeCerto'
+            ? 'zap-icon'
+            : ''
+        }
         style={{ width: '20px', height: '23px' }}
         src={imageSrc}
         alt="icone"
