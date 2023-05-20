@@ -44,6 +44,15 @@ export const SCTextCampPergunta = styled.div`
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
 
+  img {
+    position: absolute;
+    width: 30px;
+    height: 20px;
+
+    bottom: 10px;
+    right: 10px;
+  }
+
   p {
     position: absolute;
     top: 10px;
@@ -53,15 +62,6 @@ export const SCTextCampPergunta = styled.div`
     font-size: 18px;
 
     color: #333333;
-  }
-
-  img {
-    position: absolute;
-    width: 30px;
-    height: 20px;
-
-    bottom: 10px;
-    right: 10px;
   }
 `
 

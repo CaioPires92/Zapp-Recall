@@ -14,7 +14,12 @@ export default function CardVazio({
   return (
     <SCTextCampVazio>
       <p style={{ color, ...lineThroughStyle }}>{texto}</p>
-      <img src={imageSrc} alt="icone" onClick={onClick} />
+      <img
+        style={{ width: '20px', height: '23px' }}
+        src={imageSrc}
+        alt="icone"
+        onClick={onClick}
+      />
     </SCTextCampVazio>
   )
 }

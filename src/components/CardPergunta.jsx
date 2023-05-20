@@ -5,7 +5,12 @@ export default function CardPergunta({ question, onClick }) {
   return (
     <SCTextCampPergunta>
       <p>{question}</p>
-      <img src={setaVirar} alt="icone" onClick={onClick} />
+      <img
+        style={{ width: '30px', height: 'auto' }}
+        src={setaVirar}
+        alt="icone"
+        onClick={onClick}
+      />
     </SCTextCampPergunta>
   )
 }
