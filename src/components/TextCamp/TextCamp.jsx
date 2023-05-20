@@ -76,7 +76,7 @@ export default function TextCamp({ camps, setCamps, setCompletedCount }) {
   return (
     <>
       {camps.map(camp => (
-        <div key={camp.id}>
+        <div data-test="flashcard" key={camp.id}>
           {camp.showResposta && !camp.showPergunta ? (
             <CardResposta answer={camp.answer} handleClick={handleClick} />
           ) : camp.showPergunta ? (

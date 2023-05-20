@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export default function Footer({ completedCount, totalQuestions }) {
   return (
     <SCFooter>
-      <footer>
+      <footer data-test="footer">
         <p>
           {completedCount}/{totalQuestions} CONCLUÍDOS
         </p>

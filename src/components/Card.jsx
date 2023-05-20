@@ -99,7 +99,7 @@ export default function Card() {
           <img src={logo} alt="Logo" />
           <h1>ZapRecall</h1>
         </header>
-        <div className="container" data-test="flashcard">
+        <div className="container">
           <TextCamp
             camps={camps}
             setCamps={setCamps}
@@ -107,11 +107,7 @@ export default function Card() {
           />
         </div>
       </SCCard>
-      <Footer
-        data-test="footer"
-        completedCount={completedCount}
-        totalQuestions={camps.length}
-      />
+      <Footer completedCount={completedCount} totalQuestions={camps.length} />
     </>
   )
 }
